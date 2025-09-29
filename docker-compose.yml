@@ -1,0 +1,46 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/utils:/app/utils
+      - ./backend/package.json:/app/package.json
+      - ./backend/package-lock.json:/app/package-lock.json
+      - /app/node_modules
+      - ./backend/frontend:/app/frontend
+      - ./backend/utils/db_volume:/app/src/utils/db_volume
+    environment:
+      - NODE_ENV=development
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    command: npm run dev
+
+  frontend:
+    build:
+      context: ./backend/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./backend/frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    command: npm run dev
+
+  redis:
+    image: redis:6
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  sqlite-data:
+  redis-data:
+  

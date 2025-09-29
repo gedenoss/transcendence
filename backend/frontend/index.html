@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Transcendence</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            mono: ["JetBrains Mono", "monospace"],
+                            sans: ["Inter", "sans-serif"],
+                        },
+                    },
+                },
+            };
+        </script>
+
+        <meta
+            name="google-signin-client_id"
+            content="1560847651-b31pkjflds74sb9s6g1s3enpo71bd5kn.apps.googleusercontent.com"
+        />
+        <script
+            src="https://accounts.google.com/gsi/client"
+            async
+            defer
+        ></script>
+    </head>
+    <!-- conteneur spa injecté par ts -->
+    <body class="font-sans">
+        <!-- Dépendances Babylon.js pour le jeu Pong -->
+        <script src="https://cdn.babylonjs.com/earcut.min.js"></script>
+        <script src="https://cdn.babylonjs.com/babylon.js"></script>
+        <script src="https://cdn.babylonjs.com/loaders/babylon.glTF2FileLoader.js"></script>
+        <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+        <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+        <script src="/pong/libs/meshwriter.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+        <script type="module">
+            import earcut from 'https://cdn.jsdelivr.net/npm/earcut/+esm';
+        </script>
+        <div id="app">
+            <div
+                class="min-h-screen bg-gray-950 text-white flex items-center justify-center"
+            >
+                <div class="text-center">
+                    <div class="animate-pulse text-blue-500 font-mono">
+                        Loading...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- syst ready -->
+        <div
+            class="fixed bottom-8 right-8 font-mono text-xs text-gray-500 bg-gray-900 px-4 py-2 rounded border border-gray-800 opacity-80"
+        >
+            <span class="text-green-500 animate-pulse">●</span> system ready
+        </div>
+
+        <div
+            id="g_id_onload"
+            data-client_id="1560847651-b31pkjflds74sb9s6g1s3enpo71bd5kn.apps.googleusercontent.com"
+            data-callback="handleCredentialResponse"
+            data-auto_prompt="false"
+        ></div>
+
+        <script type="module" src="/dist/main.js"></script>
+    </body>
+</html>
+
