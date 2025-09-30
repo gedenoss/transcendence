@@ -33,4 +33,4 @@
 
 - Pong Game (Gameplay & UX) – P1  
 - Backend & Authentication – P2  
-- Frontend & Security – P3  
+- Frontend & Security – P3
