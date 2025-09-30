@@ -28,7 +28,6 @@
 
 **Benefits:** Legal compliance, user trust, transparency, reduced risks  
 
-
 ## Projects and Contributions
 
 - Pong Game (Gameplay & UX) – P1  
