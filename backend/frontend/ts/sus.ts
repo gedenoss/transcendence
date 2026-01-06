@@ -24,7 +24,6 @@ class PoopEasterEgg {
       }
     });
   }
-  
 
   private handleClick(): void {
     this.clickCount++;
@@ -44,7 +43,7 @@ class PoopEasterEgg {
     this.isPoopMode = true;
     this.clickCount = 0;
 
-    console.log("💩 EASTER EGG ACTIVATED! 💩");
+    console.log(" EASTER EGG ACTIVATED! ");
 
     const poopContainer = document.createElement("div");
     poopContainer.id = "poop-container";
@@ -63,7 +62,7 @@ class PoopEasterEgg {
     for (let i = 0; i < 50; i++) {
       setTimeout(() => {
         this.createFallingPoop(poopContainer);
-        this.playSynthPoop(); // 💨 bruit de caca généré
+        this.playSynthPoop();
       }, i * 100);
     }
 
@@ -122,11 +121,11 @@ class PoopEasterEgg {
     if ((window as any).gamePageInstance?.showProfileAlert) {
       (window as any).gamePageInstance.showProfileAlert(
         "profile-success",
-        "CACA KI PU",
+        "CACA",
         "success",
       );
     } else {
-      this.createSimpleAlert("CACA KI PU");
+      this.createSimpleAlert("CACA");
     }
   }
 
@@ -155,7 +154,6 @@ class PoopEasterEgg {
     }, 3000);
   }
 
-  // 💨 Générateur de bruit de pet via Web Audio API
   private playSynthPoop(): void {
     const ctx = new (window.AudioContext ||
       (window as any).webkitAudioContext)();
@@ -184,7 +182,6 @@ class PoopEasterEgg {
   }
 }
 
-// Auto-initialisation globale
 let globalPoopEasterEgg: PoopEasterEgg;
 
 if (document.readyState === "loading") {

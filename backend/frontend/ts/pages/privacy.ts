@@ -1,5 +1,4 @@
 export function showPrivacyPopup(): void {
-  // Supprimer popup existant
   const existing = document.getElementById("privacy-popup");
   if (existing) existing.remove();
 
@@ -36,7 +35,6 @@ export function showPrivacyPopup(): void {
 }
 
 export function showContactPopup(): void {
-  // Supprimer popup existant
   const existing = document.getElementById("contact-popup");
   if (existing) existing.remove();
 
@@ -70,10 +68,8 @@ export function showContactPopup(): void {
   
   document.body.appendChild(popup);
   
-  // Créer l'image avec createElement
   const imageContainer = document.getElementById("image-container");
   if (imageContainer) {
-    // Créer l'élément image
     const contactImage = document.createElement("img");
     contactImage.src = "/image.jpg";
     contactImage.alt = "Contact";
@@ -81,17 +77,14 @@ export function showContactPopup(): void {
     contactImage.style.maxWidth = "192px";
     contactImage.style.maxHeight = "300px";
     
-    // Gérer le chargement
     contactImage.onload = function() {
-      console.log("✅ Image loaded successfully!");
-      // Remplacer le 🗿 par l'image
+      console.log("Image loaded successfully!");
       imageContainer.innerHTML = "";
       imageContainer.appendChild(contactImage);
     };
     
     contactImage.onerror = function() {
-      console.log("❌ Image failed to load from:", contactImage.src);
-      // Garder le 🗿 par défaut
+      console.log(" Image failed to load from:", contactImage.src);
     };
   }
   

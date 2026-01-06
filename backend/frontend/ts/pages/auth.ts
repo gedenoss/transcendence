@@ -2,7 +2,6 @@
 export let socket: WebSocket;
 
 export function tryConnectWebSocketIfAuthenticated() {
-  // Si une socket existe déjà et est ouverte, ne rien faire
   if (window.socket && window.socket.readyState === WebSocket.OPEN) {
     console.log("WebSocket déjà connectée");
     return;
@@ -16,16 +15,16 @@ export function tryConnectWebSocketIfAuthenticated() {
         const socket = new WebSocket(`${protocol}://${host}/ws`);
 
         socket.onopen = () => {
-          console.log("✅ WebSocket connectée");
+          console.log("WebSocket connectée");
         };
 
         socket.onclose = () => {
-          console.log("❌ WebSocket fermée");
+          console.log(" WebSocket fermée");
           window.socket = undefined;
         };
 
         socket.onerror = (e) => {
-          console.error("⚠️ Erreur WebSocket :", e);
+          console.error(" Erreur WebSocket :", e);
         };
 
         window.socket = socket;
@@ -54,11 +53,11 @@ async function checkAuthAndRedirect() {
 
 
 export async function verifyToken() {
-    console.log("🔍 Vérification du token JWT...");
+    console.log(" Vérification du token JWT...");
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
-      console.log("🔍 Token trouvé, vérification en cours...");
+      console.log(" Token trouvé, vérification en cours...");
       const res = await fetch("/me", {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -68,9 +67,9 @@ export async function verifyToken() {
       if (!res.ok) throw new Error("Token invalide");
 
       const data = await res.json();
-      console.log("✅ Utilisateur connecté :", data.user);
+      console.log("Utilisateur connecté :", data.user);
     } catch (err) {
-      console.error("❌ Erreur vérification token :", err);
+      console.error("Erreur vérification token :", err);
     }
   }
 
@@ -183,11 +182,11 @@ export class AuthPage {
                             <!-- Form -->
                             <div class="mb-5">
                                 <label class="block font-mono text-sm font-medium text-gray-400 mb-2">
-                                    login / email
+                                    login
                                 </label>
                                 <input type="text"
                                        id="signin-login"
-                                       placeholder="username or user@domain.com"
+                                       placeholder="username"
                                        autocomplete="username"
                                        class="w-full px-5 py-4 border border-gray-800 rounded-lg font-mono bg-gray-800 text-white placeholder-gray-500 transition-all duration-200 focus:outline-none focus:ring-3 focus:ring-blue-500/30 focus:border-blue-500 focus:bg-gray-900">
                             </div>
@@ -336,7 +335,7 @@ export class AuthPage {
       this.backToSignin();
     });
 
-    // key navigation(pour passer dune case a lautre juste avec entree)
+    // pour passer dune case a lautre juste avec entree
     this.setupKeyboardNavigation();
 
     // def tab
@@ -344,7 +343,6 @@ export class AuthPage {
   }
 
   private switchTab(tabName: string): void {
-    // Hide navigation for 2FA
     if (tabName === "verify2fa") {
       document.getElementById("tab-navigation")!.style.display = "none";
     } else {
@@ -364,10 +362,8 @@ export class AuthPage {
       .querySelectorAll(".tab-content")
       .forEach((c) => c.classList.add("hidden"));
 
-    // Show the selected tab content
     document.getElementById(tabName)!.classList.remove("hidden");
 
-    // Only highlight active button if not 2FA
     if (tabName !== "verify2fa") {
       const activeButton = document.querySelector(`[data-tab="${tabName}"]`)!;
       activeButton.classList.remove("text-gray-400");
@@ -427,12 +423,11 @@ export class AuthPage {
           "success",
         );
 
-        console.log("Authentication successful ✅", data);
+        console.log("Authentication successful ", data);
         setTimeout(() => {
           window.router.navigate("/game");
         }, 1000);
       } else if (response.status === 400) {
-        // 2FA required
         this.pendingToken = data.token;
         btn.textContent = "$ 2FA required";
         btn.style.background = "#f59e0b";
@@ -497,7 +492,7 @@ export class AuthPage {
         btn.style.background = "#10b981";
         this.showAlert("verify2fa-success", "$ 2FA verification successful!", "success");
 
-        console.log("2FA verification successful ✅", data);
+        console.log("2FA verification successful ", data);
 
         setTimeout(() => {
           window.router.navigate("/game");
@@ -562,7 +557,7 @@ export class AuthPage {
           "success",
         );
 
-        console.log("Account created successfully ✅", data);
+        console.log("Account created successfully ", data);
 
         // 2 sec = switch
         setTimeout(() => {
@@ -586,7 +581,6 @@ export class AuthPage {
 
   //google auth
   private initializeGoogleAuth(): void {
-    // DOM pret = google
     setTimeout(() => {
       if ((window as any).google && (window as any).google.accounts) {
         (window as any).google.accounts.id.initialize({
@@ -627,7 +621,6 @@ export class AuthPage {
       }
     }, 100);
 
-    //callback
     window.handleCredentialResponse = (response: any) => {
       const id_token = response.credential;
       const isSignup = !document
@@ -656,7 +649,7 @@ export class AuthPage {
         return;
           }
           this.showAlert(alertId, message, "success");
-          console.log("Google authentication successful ✅", data);
+          console.log("Google authentication successful ", data);
 
           //go jeu quand c bon
           setTimeout(() => {
@@ -718,7 +711,6 @@ export class AuthPage {
         }
       });
 
-    // 2FA navigation
     document
       .getElementById("otp-input")!
       .addEventListener("keypress", (e) => {
@@ -728,7 +720,6 @@ export class AuthPage {
         }
       });
 
-    // Auto-format OTP input (only numbers)
     document
       .getElementById("otp-input")!
       .addEventListener("input", (e) => {

@@ -7,7 +7,6 @@ export class Router {
     this.routes.set(path, handler);
   }
 
-  //navigue vers une nouvelle page (sans rechargement a revoir)
   navigate(path: string): void {
     if (this.currentPath === path) {
       return;
@@ -23,9 +22,9 @@ export class Router {
       this.currentPath = path;
       handler();
 
-      console.log(`🚀 Navigated to: ${path}`);
+      console.log(`Navigated to: ${path}`);
     } else {
-      console.warn(`⚠️ Route not found: ${path}`);
+      console.warn(`Route not found: ${path}`);
       this.navigate("/auth");
     }
   }
@@ -48,4 +47,3 @@ export class Router {
     window.history.forward();
   }
 }
-
